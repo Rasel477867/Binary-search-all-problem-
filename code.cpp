@@ -10,21 +10,10 @@
 #define pf push_front
 const ll mod=1e9+7;
 using namespace std;
+map<ll,ll>m;
+map<ll,ll>:: iterator it;
 vector<ll>v;
-set<ll>s;
-ll n,k;
-bool cheak(ll num)
-{
-    ll sum=1,p=v[num],i;
-    for(i=num+1; i<v.size(); i++)
-    {
-        sum+=n-v[i];
-    }
-    if(p>=sum)
-      return true;
-    else
-        return false;
-}
+
 //ll ex(ll a,ll b,ll mod)
 //{
 //    if(b==0)
@@ -52,40 +41,33 @@ int main()
     cin.tie(0);
     cout.tie(0);
     ll i,j,t;
-    ll l,r,ans,a,b,mid;
-    cin>>t;
-    while(t--)
+    ll n,k,r,l,mid,ans;
+    cin>>n>>k;
+    float avg,key,sum=0.0,a;
+    for(i=0; i<n; i++)
     {
-        v.clear();
-        cin>>n>>k;
-        ll ans1=0;
-        for(i=0; i<k; i++)
-        {
-            cin>>a;
-            if(a>=n)
-                ans1++;
-            else
-                v.pb(a);
-        }
-        sort(v.begin(),v.end());
-        l=0;
-        r=k-1;
-        while(r>=l)
-        {
-            mid=(l+r)/2;
-            if(cheak(mid))
-            {
-                b=mid;
-                r=mid-1;
-            }
-            else
-                l=mid+1;
-        }
-        ans=k-b+ans1;
-
-
-        cout<<ans<<endl;
+        cin>>a;
+        sum+=a;
     }
+    key=k-1+0.5;
+    l=0;
+    r=1e9;
+     ans=0;
+    while(r>=l)
+    {
+        mid=(l+r)/2;
+        avg=(sum+float(mid*k))/float(n+mid);
+        if(avg>=key)
+        {
+            ans=mid;
+            r=mid-1;
+        }
+        else
+            l=mid+1;
+    }
+    cout<<ans;
+
+
 
     return 0;
 }
