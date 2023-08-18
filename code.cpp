@@ -10,10 +10,17 @@
 #define pf push_front
 const ll mod=1e9+7;
 using namespace std;
-map<ll,ll>m;
-map<ll,ll>:: iterator it;
 vector<ll>v;
+ll k,ak,a1,n;
+bool cheak(ll mid)
+{
+    ll p=mid*k+k*ak+a1,num;
+    if(p>=n)
+        return true;
+    else if(p<n)
+        return false;
 
+}
 //ll ex(ll a,ll b,ll mod)
 //{
 //    if(b==0)
@@ -40,34 +47,67 @@ int main()
     ios::sync_with_stdio(0);
     cin.tie(0);
     cout.tie(0);
-    ll i,j,t;
-    ll n,k,r,l,mid,ans;
-    cin>>n>>k;
-    float avg,key,sum=0.0,a;
-    for(i=0; i<n; i++)
+    ll j,i,t;
+    ll a,b,num,ans,l,r,mid;
+    cin>>t;
+    while(t--)
     {
-        cin>>a;
-        sum+=a;
-    }
-    key=k-1+0.5;
-    l=0;
-    r=1e9;
-     ans=0;
-    while(r>=l)
-    {
-        mid=(l+r)/2;
-        avg=(sum+float(mid*k))/float(n+mid);
-        if(avg>=key)
+        cin>>n>>k>>a1>>ak;
+        num=a1+k*ak;
+
+        if(num==n)
+            cout<<0<<endl;
+        else if(num>n)
         {
-            ans=mid;
-            r=mid-1;
+             a=n/k;
+
+             if(a<=ak)
+                b=a*k;
+             else
+                b=ak*k;
+
+
+                n=n-b-a1;
+                if(n<=0)
+                    cout<<0<<endl;
+                else
+                    cout<<n<<endl;
+
         }
         else
-            l=mid+1;
+        {
+            l=0;
+            r=1e8;
+            while(r>=l)
+            {
+                mid=(l+r)/2;
+                if(cheak(mid))
+                {
+                    ans=mid;
+                    r=mid-1;
+                }
+                else
+                    l=mid+1;
+            }
+
+            a=ans*k+k*ak+a1;
+            if(a==n)
+                cout<<ans<<endl;
+            else
+            {
+                b=a-n;
+                if(b<=a1)
+                    cout<<ans<<endl;
+                else{
+                   ans--;
+                   a=ans*k+ak*k+a1;
+                   b=n-a;
+                   ans+=b;
+                   cout<<ans<<endl;
+                }
+
+            }
+        }
     }
-    cout<<ans;
-
-
-
     return 0;
 }
